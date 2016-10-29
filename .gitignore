@@ -1,0 +1,5 @@
+# Vendor files
+vendor/
+
+# Built Binaries (Read the Makefile)
+copper-mantis*
