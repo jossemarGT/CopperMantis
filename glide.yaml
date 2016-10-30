@@ -2,5 +2,9 @@ package: github.com/CopperMantis/CopperMantis
 import:
 - package: github.com/goadesign/goa
   subpackages:
+  - client
   - design
   - design/apidsl
+  - dslengine
+  - goagen
+  - middleware

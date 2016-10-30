@@ -3,3 +3,7 @@ vendor/
 
 # Built Binaries (Read the Makefile)
 copper-mantis*
+
+# Others
+*.backup
+*.orig

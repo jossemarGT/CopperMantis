@@ -7,8 +7,8 @@
 BINARY=copper-mantis
 VERSION=0.1.0
 
-SOURCEDIR=.
-SOURCES := $(shell find $(SOURCEDIR) -type f -name '*.go' ! -path '$(SOURCEDIR)/design/*'  ! -path '$(SOURCEDIR)/vendor/*' )
+SOURCEDIRS:= $(shell go list ./... | grep -v /vendor | grep -v /build )
+SOURCES:=$(shell find . -type f -name '*.go' ! -path './design/*' ! -path './build/*' ! -path './vendor/*' )
 BUILD_TIME=$(shell date +%FT%T%z)
 GIT_COMMIT=$(shell git rev-parse --verify HEAD)
 
@@ -18,27 +18,29 @@ GO_LDFLAGS+= -X $(GO_NAMESPACE)/main.BuildTime=$(BUILD_TIME)
 GO_LDFLAGS+= -X $(GO_NAMESPACE)/main.Commit=$(GIT_COMMIT)
 
 # Build
-$(BINARY): vendor main.go $(SOURCES)
+$(BINARY): test $(SOURCES)
 	GOOS=linux CGO_ENABLED=0 GOARCH=amd64 go build -ldflags "$(GO_LDFLAGS)" -o $(BINARY)
 
-.PHONY: vendor clean clean-vendor
-vendor:
-	glide install
-
+.PHONY: clean
 clean:
 	@[ -f $(BINARY) ] && rm $(BINARY) || true
-
-clean-vendor:
-	@[ -d vendor ] && rm -r vendor || true
 
 # Test
 .PHONY: test lint
 test: vendor lint
-	go test -v $(SOURCES) -cover
+	@go test -v $(SOURCEDIRS) -cover
 
 lint:
-	go fmt $(SOURCES)
-	go vet $(SOURCES)
+	@go fmt $(SOURCEDIRS)
+	@go vet $(SOURCEDIRS)
+
+# Depedencies
+.PHONY: vendor vendor-clean
+vendor:
+	glide install
+
+vendor-clean:
+	@[ -d vendor ] && rm -r vendor || true
 
 # Goa realated and misc targets
 include build/*.mk
