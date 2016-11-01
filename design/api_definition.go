@@ -9,6 +9,7 @@ var _ = API("CopperMantis", func() {
 	Title("Programming Contest Management System Rest API")
 	Description("CopperMantis ecosystem public API")
 	BasePath("/cms/v1")
+	Version("1.0")
 	License(func() {
 		Name("Apache-2.0")
 		URL("https://github.com/CopperMantis/CopperMantis/blob/master/LICENSE")

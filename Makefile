@@ -7,7 +7,7 @@
 BINARY=copper-mantis
 VERSION=0.1.0
 
-SOURCEDIRS:= $(shell go list ./... | grep -v /vendor | grep -v /build )
+SOURCEDIRS:=$(shell go list ./... | grep -v /vendor | grep -v /build )
 SOURCES:=$(shell find . -type f -name '*.go' ! -path './design/*' ! -path './build/*' ! -path './vendor/*' )
 BUILD_TIME=$(shell date +%FT%T%z)
 GIT_COMMIT=$(shell git rev-parse --verify HEAD)

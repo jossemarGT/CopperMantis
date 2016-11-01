@@ -10,7 +10,7 @@ import os
 
 
 def main():
-    for file in os.listdir("."):
+    for file in os.listdir(os.getcwd()):
         if file.endswith(".go"):
             restore(file)
 
