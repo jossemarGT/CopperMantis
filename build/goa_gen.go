@@ -8,8 +8,9 @@ import (
 	genapp "github.com/goadesign/goa/goagen/gen_app"
 	genclient "github.com/goadesign/goa/goagen/gen_client"
 	genmain "github.com/goadesign/goa/goagen/gen_main"
-	"github.com/goadesign/goa/goagen/gen_schema"
+	genschema "github.com/goadesign/goa/goagen/gen_schema"
 	genswagger "github.com/goadesign/goa/goagen/gen_swagger"
+	genmeta "github.com/goadesign/goa/goagen/meta"
 )
 
 func main() {
@@ -27,6 +28,14 @@ func main() {
 			OutDir: "app",
 			Target: "app",
 			NoTest: false,
+		},
+		// Generate ER database gorm mapping
+		&genmeta.Generator{
+			Genfunc:       "gorma.Generate",
+			Imports:       []*codegen.ImportSpec{codegen.SimpleImport("github.com/goadesign/gorma")},
+			DesignPkgPath: "github.com/CopperMantis/CopperMantis/design",
+			OutDir:        "models",
+			Flags:         map[string]string{"debug": "true"},
 		},
 		// Generate CLI tool
 		&genclient.Generator{

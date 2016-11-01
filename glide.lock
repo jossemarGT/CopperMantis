@@ -1,6 +1,8 @@
-hash: 5deffbd7bf84f1272c00e0170f316c8783a229327f5e2bdd6b2ecfa89a528a54
-updated: 2016-10-30T23:09:10.891355487-06:00
+hash: 25c220b190399f4105d56afdf57d7cc9cd43bab50d93953b2972175d85022b3b
+updated: 2016-10-31T23:18:06.254287539-06:00
 imports:
+- name: bitbucket.org/pkg/inflect
+  version: 8961c3750a47b8c0b3e118d52513b97adf85a7e8
 - name: github.com/armon/go-metrics
   version: 3df31a1ada83e310c2e24b267c8e8b68836547b4
 - name: github.com/dimfeld/httppath
@@ -8,26 +10,38 @@ imports:
 - name: github.com/dimfeld/httptreemux
   version: 5cb0ec25af2dd6a7d3718b5aa05dc48e192473bc
 - name: github.com/goadesign/goa
-  version: 78c9c612c38c308793ec1f2cf310025f140755b3
+  version: 672877fd8e794326384973a9580c589c0a584530
   subpackages:
   - client
   - design
   - design/apidsl
   - dslengine
-  - goagen
   - goagen/codegen
   - goagen/gen_app
   - goagen/gen_client
   - goagen/gen_main
   - goagen/gen_schema
   - goagen/gen_swagger
+  - goagen/meta
   - goagen/utils
   - goatest
   - middleware
   - uuid
   - version
+- name: github.com/goadesign/gorma
+  version: ce2a7ae7ddc50d19cf2c4cd71e3f187c20b98872
+  subpackages:
+  - dsl
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
+- name: github.com/jinzhu/gorm
+  version: 5174cc5c242a728b435ea2be8a2f7f998e15429b
+- name: github.com/jinzhu/inflection
+  version: 74387dc39a75e970e7a3ae6a3386b5bd2e5c5cff
+- name: github.com/kr/pretty
+  version: cfb55aafdaf3ec08f0db22699ab822c50091b1c4
+- name: github.com/kr/text
+  version: 7cafcd837844e784b526369c9bce262804aebc60
 - name: github.com/manveru/faker
   version: 717f7cf83fb78669bfab612749c2e8ff63d5be11
 - name: github.com/pkg/errors

@@ -1,6 +1,7 @@
 package: github.com/CopperMantis/CopperMantis
 import:
 - package: github.com/goadesign/goa
+  version: ^1.0.0
   subpackages:
   - client
   - design
@@ -8,3 +9,6 @@ import:
   - dslengine
   - goagen
   - middleware
+- package: github.com/goadesign/gorma
+- package: github.com/jinzhu/gorm
+  version: ^1.0.0
