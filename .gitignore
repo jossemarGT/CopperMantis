@@ -4,6 +4,19 @@ vendor/
 # Built Binaries (Read the Makefile)
 copper-mantis*
 
+# Local configuration files
+.copper-mantis*
+
+# Goa generated files
+app/
+client/
+models/
+schema/
+swagger/
+tool/
+/*.go
+!/main.go
+
 # Others
 *.backup
 *.orig

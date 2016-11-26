@@ -7,7 +7,7 @@ Make sure that your PR title starts with one of the following:
 
 [proposal]
 [patch]
-[implements #<another PR number>]
+[implements #<optional issue number>]
 [fixes #<an issue number>]
 
 For example:
