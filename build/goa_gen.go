@@ -46,7 +46,7 @@ func main() {
 		&genschema.Generator{
 			API: design.Design,
 		},
-		// Generate swagger (another kind of "pact")
+		// Generate swagger (another more popular "pact")
 		&genswagger.Generator{
 			API: design.Design,
 		},

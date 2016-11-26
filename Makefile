@@ -35,10 +35,10 @@ lint:
 	@go vet $(SOURCEDIRS)
 
 # Depedencies
-.PHONY: vendor vendor-clean
 vendor:
 	glide install
 
+.PHONY: vendor-clean
 vendor-clean:
 	@[ -d vendor ] && rm -r vendor || true
 

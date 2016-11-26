@@ -12,7 +12,7 @@ goa_backup:
 .PHONY: goa_clean
 goa_clean:
 	@rm -rf app client swagger tool schema models
-	@find . -maxdepth 1 -name "*.go" -exec rm -f {} \;
+	@find . -maxdepth 1 \( ! -name "main.go" \) -name "*.go" -exec rm -f {} \;
 
 .PHONY: goa
 goa:
