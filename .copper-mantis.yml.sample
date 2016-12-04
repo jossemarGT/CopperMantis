@@ -1,0 +1,10 @@
+database:
+  host: 127.0.0.1
+  port: 5432
+  user: cms_user
+  password: cms123
+  schema: copper_mantis
+  sslmode: disable
+  max_connections: 50
+  log_mode: true
+  migrate: true
