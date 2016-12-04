@@ -3,16 +3,18 @@ package controllers
 import (
 	"github.com/CopperMantis/CopperMantis/app"
 	"github.com/goadesign/goa"
+	"github.com/jinzhu/gorm"
 )
 
 // DocumentController implements the document resource.
 type DocumentController struct {
 	*goa.Controller
+	db *gorm.DB
 }
 
 // NewDocumentController creates a document controller.
-func NewDocumentController(service *goa.Service) *DocumentController {
-	return &DocumentController{Controller: service.NewController("DocumentController")}
+func NewDocumentController(service *goa.Service, db *gorm.DB) *DocumentController {
+	return &DocumentController{Controller: service.NewController("DocumentController"), db: db}
 }
 
 // Create runs the create action.

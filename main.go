@@ -15,9 +15,11 @@ import (
 
 	"github.com/CopperMantis/CopperMantis/app"
 	"github.com/CopperMantis/CopperMantis/controllers"
+	"github.com/CopperMantis/CopperMantis/models"
 	"github.com/goadesign/goa"
 	"github.com/goadesign/goa/middleware"
-
+	"github.com/jinzhu/gorm"
+	_ "github.com/lib/pq"
 	"github.com/spf13/viper"
 )
 
@@ -45,30 +47,59 @@ func main() {
 	}
 
 	// Open db connection
-	pgconf := fmt.Sprintf("dbname=%s user=%s password=%s sslmode=%s port=%d host=%s",
-		viper.GetString("database.schema"),
-		viper.GetString("database.user"),
-		viper.GetString("database.password"),
-		viper.GetString("database.sslmode"),
-		viper.GetInt("database.port"),
-		viper.GetString("database.host"))
-	fmt.Println(pgconf)
+	db, err := getDB(viper.Sub("database"), "postgres")
+	if err != nil {
+		service.LogError("Couldn't open database connection", "err", err)
+	}
 
 	// Mount "contest" controller
-	c := controllers.NewContestController(service)
+	c := controllers.NewContestController(service, db)
 	app.MountContestController(service, c)
 	// Mount "document" controller
-	c2 := controllers.NewDocumentController(service)
+	c2 := controllers.NewDocumentController(service, db)
 	app.MountDocumentController(service, c2)
 	// Mount "monitoring" controller
 	c3 := controllers.NewMonitoringController(service)
 	app.MountMonitoringController(service, c3)
 	// Mount "profile" controller
-	c4 := controllers.NewProfileController(service)
+	c4 := controllers.NewProfileController(service, db)
 	app.MountProfileController(service, c4)
 
 	// Start service
 	if err := service.ListenAndServe(":8080"); err != nil {
 		service.LogError("startup", "err", err)
 	}
+}
+
+func getDB(v *viper.Viper, backend string) (*gorm.DB, error) {
+	v.SetDefault("sslmode", "disabled")
+	v.SetDefault("max_connections", 50)
+	v.SetDefault("log_mode", false)
+	v.SetDefault("migrate", false)
+
+	url := fmt.Sprintf("dbname=%s user=%s password=%s sslmode=%s port=%d host=%s",
+		v.GetString("schema"),
+		v.GetString("user"),
+		v.GetString("password"),
+		v.GetString("sslmode"),
+		v.GetInt("port"),
+		v.GetString("host"))
+
+	db, err := gorm.Open(backend, url)
+	if err != nil {
+		return nil, err
+	}
+	db.LogMode(v.GetBool("log_mode"))
+	db.DB().SetMaxOpenConns(v.GetInt("max_connections"))
+
+	if v.GetBool("migrate") {
+		migrateDB(db)
+	}
+
+	return db, nil
+}
+
+func migrateDB(db *gorm.DB) {
+	// TODO: Find a fancy way to determine the model list
+	db.AutoMigrate(models.Contest{}, models.Document{}, models.Profile{})
 }

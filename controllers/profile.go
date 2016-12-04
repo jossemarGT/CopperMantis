@@ -3,16 +3,18 @@ package controllers
 import (
 	"github.com/CopperMantis/CopperMantis/app"
 	"github.com/goadesign/goa"
+	"github.com/jinzhu/gorm"
 )
 
 // ProfileController implements the profile resource.
 type ProfileController struct {
 	*goa.Controller
+	db *gorm.DB
 }
 
 // NewProfileController creates a profile controller.
-func NewProfileController(service *goa.Service) *ProfileController {
-	return &ProfileController{Controller: service.NewController("ProfileController")}
+func NewProfileController(service *goa.Service, db *gorm.DB) *ProfileController {
+	return &ProfileController{Controller: service.NewController("ProfileController"), db: db}
 }
 
 // Create runs the create action.

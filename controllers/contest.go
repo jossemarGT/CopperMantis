@@ -3,16 +3,18 @@ package controllers
 import (
 	"github.com/CopperMantis/CopperMantis/app"
 	"github.com/goadesign/goa"
+	"github.com/jinzhu/gorm"
 )
 
 // ContestController implements the contest resource.
 type ContestController struct {
 	*goa.Controller
+	db *gorm.DB
 }
 
 // NewContestController creates a contest controller.
-func NewContestController(service *goa.Service) *ContestController {
-	return &ContestController{Controller: service.NewController("ContestController")}
+func NewContestController(service *goa.Service, db *gorm.DB) *ContestController {
+	return &ContestController{Controller: service.NewController("ContestController"), db: db}
 }
 
 // Create runs the create action.

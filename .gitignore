@@ -5,9 +5,9 @@ vendor/
 copper-mantis*
 
 # Local configuration files
-.copper-mantis*
+.copper-mantis.yml
 
-# Goa generated files (this files will be ignored at least for the first release)
+# Goa generated files (this files will be ignored at least until the first release)
 app/
 client/
 models/
