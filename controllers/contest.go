@@ -22,11 +22,14 @@ func NewContestController(service *goa.Service, db *gorm.DB) *ContestController 
 // Create runs the create action.
 func (c *ContestController) Create(ctx *app.CreateContestContext) error {
 	// ContestController_Create: start_implement
-
-	// Put your logic here
-
+	m := models.ContestFromContestPayload(ctx.Payload)
+	err := c.contestStorage.Add(ctx.Context, m)
+	if err != nil {
+		return ctx.InternalServerError(err)
+	}
+	ctx.ResponseData.Header().Set("Location", app.ContestHref(m.ID))
+	return ctx.Created()
 	// ContestController_Create: end_implement
-	return nil
 }
 
 // Delete runs the delete action.
@@ -53,12 +56,15 @@ func (c *ContestController) List(ctx *app.ListContestContext) error {
 // Show runs the show action.
 func (c *ContestController) Show(ctx *app.ShowContestContext) error {
 	// ContestController_Show: start_implement
-
-	// Put your logic here
-
+	m, err := c.contestStorage.OneCmsContest(ctx.Context, ctx.ContestID)
+	if err == gorm.ErrRecordNotFound {
+		return ctx.NotFound()
+	} else if err != nil {
+		return ctx.InternalServerError(err)
+	}
+	m.Href = app.ContestHref(m.ID)
+	return ctx.OK(m)
 	// ContestController_Show: end_implement
-	res := &app.CmsContest{}
-	return ctx.OK(res)
 }
 
 // Update runs the update action.
