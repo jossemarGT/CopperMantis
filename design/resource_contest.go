@@ -35,6 +35,7 @@ var _ = Resource("contest", func() {
 		Response(OK, ContestMediaType)
 		Response(BadRequest, ErrorMedia)
 		Response(NotFound)
+		Response(InternalServerError, ErrorMedia)
 	})
 
 	Action("create", func() {
@@ -45,6 +46,7 @@ var _ = Resource("contest", func() {
 		Payload(ContestType)
 		Response(Created, "/contest/[0-9]+")
 		Response(BadRequest, ErrorMedia)
+		Response(InternalServerError, ErrorMedia)
 	})
 
 	Action("update", func() {
@@ -59,8 +61,9 @@ var _ = Resource("contest", func() {
 		})
 		Payload(ContestType)
 		Response(NoContent)
-		Response(NotFound, ErrorMedia)
+		Response(NotFound)
 		Response(BadRequest, ErrorMedia)
+		Response(InternalServerError, ErrorMedia)
 	})
 
 	Action("delete", func() {
@@ -72,7 +75,8 @@ var _ = Resource("contest", func() {
 			Param("contestID", Integer, "Profile ID")
 		})
 		Response(NoContent)
-		Response(NotFound, ErrorMedia)
+		Response(NotFound)
 		Response(BadRequest, ErrorMedia)
+		Response(InternalServerError, ErrorMedia)
 	})
 })
