@@ -7,10 +7,11 @@
 from __future__ import print_function
 
 import os
+import sys
 
-
-def main():
-    for file in os.listdir(os.getcwd()):
+def main(path):
+    print(path)
+    for file in os.listdir(path):
         if file.endswith(".go"):
             restore(file)
 
@@ -85,4 +86,5 @@ def restore_to_original(filename, blocks):
     for line in output:
         out.write("%s" % line)
 
-main()
+path = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.getcwd()
+main(path)

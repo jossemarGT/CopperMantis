@@ -7,7 +7,7 @@ goa_regen: goa_backup goa_clean goa goa_restore
 
 .PHONY: goa_backup
 goa_backup:
-	@find . -maxdepth 1 -name "*.go" -exec cp -f {} {}.backup \;
+	@find ./controllers -maxdepth 1 -name "*.go" -exec cp -f {} {}.backup \;
 
 .PHONY: goa_clean
 goa_clean:
@@ -20,8 +20,9 @@ goa:
 
 .PHONY: goa_restore
 goa_restore:
-	@build/goa-regen.py
+	@find . -maxdepth 1 \( ! -name "main.go" \) -name "*.go" -exec mv {}.new controllers/ \;
+	@build/goa-regen.py controllers
 
 .PHONY: goa_backup_clean
 goa_backup_clean:
-	@find . -maxdepth 1 -name "*.backup" -exec rm -f {} \;
+	@find ./controllers -maxdepth 1 -name "*.backup" -exec rm -f {} \;
