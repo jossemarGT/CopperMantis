@@ -1,5 +1,5 @@
-hash: 1406a196971634d43808591c70b34314a9bcae2068b7618aa332f1f349837703
-updated: 2016-11-26T16:01:12.591160765-06:00
+hash: 638f828aafe9edcdf928654d764cae916a823fafc1633351fb7c90d0bb540c3d
+updated: 2017-03-18T18:01:05.443356508-06:00
 imports:
 - name: bitbucket.org/pkg/inflect
   version: 8961c3750a47b8c0b3e118d52513b97adf85a7e8
@@ -9,10 +9,8 @@ imports:
   version: c8e499c3ef3c3e272ed8bdcc1ccf39f73c88debc
 - name: github.com/dimfeld/httptreemux
   version: 5cb0ec25af2dd6a7d3718b5aa05dc48e192473bc
-- name: github.com/fsnotify/fsnotify
-  version: fd9ec7deca8bf46ecd2a795baaacf2b3a9be1197
 - name: github.com/goadesign/goa
-  version: 672877fd8e794326384973a9580c589c0a584530
+  version: 7bd2b30e852d471a44cd717b0ad72b705dca5fa6
   subpackages:
   - client
   - design
@@ -35,17 +33,6 @@ imports:
   version: ce2a7ae7ddc50d19cf2c4cd71e3f187c20b98872
   subpackages:
   - dsl
-- name: github.com/hashicorp/hcl
-  version: 7cb7455c285ca3bf3362aa4ba6a06a6d6f5c3ba0
-  subpackages:
-  - hcl/ast
-  - hcl/parser
-  - hcl/scanner
-  - hcl/strconv
-  - hcl/token
-  - json/parser
-  - json/scanner
-  - json/token
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
 - name: github.com/jinzhu/gorm
@@ -58,32 +45,12 @@ imports:
   version: 7cafcd837844e784b526369c9bce262804aebc60
 - name: github.com/lib/pq
   version: d8eeeb8bae8896dd8e1b7e514ab0d396c4f12a1b
-  subpackages:
-  - oid
-- name: github.com/magiconair/properties
-  version: 0723e352fa358f9322c938cc2dadda874e9151a9
 - name: github.com/manveru/faker
   version: 717f7cf83fb78669bfab612749c2e8ff63d5be11
-- name: github.com/mitchellh/mapstructure
-  version: f3009df150dadf309fdee4a54ed65c124afad715
-- name: github.com/pelletier/go-buffruneio
-  version: df1e16fde7fc330a0ca68167c23bf7ed6ac31d6d
-- name: github.com/pelletier/go-toml
-  version: 7cb988051d5045890cb91402a0b5fddc76c627bc
-- name: github.com/pkg/errors
-  version: 248dadf4e9068a0b3e79f02ed0a610d935de5302
 - name: github.com/satori/go.uuid
   version: b061729afc07e77a8aa4fad0a2fd840958f1942a
-- name: github.com/spf13/afero
-  version: 06b7e5f50606ecd49148a01a6008942d9b669217
-  subpackages:
-  - mem
-- name: github.com/spf13/cast
-  version: 24b6558033ffe202bf42f0f3b870dcc798dd2ba8
 - name: github.com/spf13/cobra
   version: 6e91dded25d73176bf7f60b40dd7aa1f0bf9be8d
-- name: github.com/spf13/jwalterweatherman
-  version: 33c24e77fb80341fe7130ee7c594256ff08ccc46
 - name: github.com/spf13/pflag
   version: 5ccb023bc27df288a957c5e994cd44fd19619465
 - name: github.com/spf13/viper
@@ -95,15 +62,6 @@ imports:
   subpackages:
   - context
   - websocket
-- name: golang.org/x/sys
-  version: 30237cf4eefd639b184d1f2cb77a581ea0be8947
-  subpackages:
-  - unix
-- name: golang.org/x/text
-  version: b01949dc0793a9af5e4cb3fce4d42999e76e8ca1
-  subpackages:
-  - transform
-  - unicode/norm
 - name: golang.org/x/tools
   version: b814a3b030588c115189743d7da79bce8b549ce1
   subpackages:

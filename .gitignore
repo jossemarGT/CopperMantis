@@ -8,15 +8,11 @@ copper-mantis*
 .copper-mantis.yml
 
 # Goa generated files (this files will be ignored at least until the first release)
-app/
-client/
-models/
 schema/
 swagger/
 tool/
-/*.go
-!/main.go
 
 # Others
+.vscode
 *.backup
 *.orig

@@ -7,48 +7,49 @@ import (
 	"github.com/goadesign/goa/goagen/codegen"
 	genapp "github.com/goadesign/goa/goagen/gen_app"
 	genclient "github.com/goadesign/goa/goagen/gen_client"
-	genmain "github.com/goadesign/goa/goagen/gen_main"
 	genschema "github.com/goadesign/goa/goagen/gen_schema"
 	genswagger "github.com/goadesign/goa/goagen/gen_swagger"
-	genmeta "github.com/goadesign/goa/goagen/meta"
+	meta "github.com/goadesign/goa/goagen/meta"
 )
 
 func main() {
+	// Get gorma generator
+	genmeta, err := meta.NewGenerator(
+		"gorma.Generate",
+		[]*codegen.ImportSpec{codegen.SimpleImport("github.com/goadesign/gorma")},
+		map[string]string{"design": "github.com/CopperMantis/CopperMantis/design", "out": ".", "pkg": "models"},
+		[]string{},
+	)
+
+	if err != nil {
+		panic(err)
+	}
+
 	codegen.ParseDSL()
 	codegen.Run(
-		// Generate main.go and controllers
-		&genmain.Generator{
-			API:    design.Design,
-			Target: "app",
-			Force:  false,
-		},
+		// TODO: Generate main.go and controllers
+		//  If needed please perform a  `goagen boostrap` instead
 		// Generate all the wiring for the http server
-		&genapp.Generator{
-			API:    design.Design,
-			OutDir: "app",
-			Target: "app",
-			NoTest: false,
-		},
+		genapp.NewGenerator(
+			genapp.API(design.Design),
+			genapp.OutDir("app"),
+			genapp.Target("app"),
+			genapp.NoTest(false),
+		),
 		// Generate ER database gorm mapping
-		&genmeta.Generator{
-			Genfunc:       "gorma.Generate",
-			Imports:       []*codegen.ImportSpec{codegen.SimpleImport("github.com/goadesign/gorma")},
-			DesignPkgPath: "github.com/CopperMantis/CopperMantis/design",
-			OutDir:        "models",
-			Flags:         map[string]string{"debug": "true"},
-		},
+		genmeta,
 		// Generate CLI tool
-		&genclient.Generator{
-			API: design.Design,
-		},
+		genclient.NewGenerator(
+			genclient.API(design.Design),
+		),
 		// Generate API Schema or "pact"
 		// Read more at: https://blog.heroku.com/json_schema_for_heroku_platform_api
-		&genschema.Generator{
-			API: design.Design,
-		},
+		genswagger.NewGenerator(
+			genswagger.API(design.Design),
+		),
 		// Generate swagger (another more popular "pact")
-		&genswagger.Generator{
-			API: design.Design,
-		},
+		genschema.NewGenerator(
+			genschema.API(design.Design),
+		),
 	)
 }

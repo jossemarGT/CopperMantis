@@ -38,9 +38,9 @@ lint:
 vendor:
 	glide install
 
-.PHONY: vendor-clean
-vendor-clean:
-	@[ -d vendor ] && rm -r vendor || true
+.PHONY: vendor_clean
+vendor_clean:
+	@-[ -d vendor ] && rm -r vendor
 
 # Goa realated and misc targets
 include build/*.mk
